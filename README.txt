@@ -2,6 +2,7 @@ kitbot_run
 一个仅供娱乐的游戏
 
 dist中包含exe和app,可将文件下载到本地后直接运行
+源代码存放在py文件夹下的game.py
 
 Todo:
 增加记分排名，存放到highscore.csv
