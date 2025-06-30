@@ -5,7 +5,7 @@ a = Analysis(
     ['game.py'],
     pathex=[],
     binaries=[],
-    datas=[('../music', 'music'), ('../images', 'images')],
+    datas=[('../mp3', 'mp3'), ('../png', 'png')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

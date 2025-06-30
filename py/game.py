@@ -34,7 +34,7 @@ clock = pygame.time.Clock()
 car_img = pygame.image.load(os.path.join(asset_path, "png", "car.png")).convert_alpha()
 obstacle_img = pygame.image.load(os.path.join(asset_path, "png", "obstacle.png")).convert_alpha()
 fail_img = pygame.image.load(os.path.join(asset_path, "png", "fail.png")).convert_alpha()
-car_img = pygame.transform.scale(car_img, (int(1.7 * CELL_SIZE), int(1.1 * CELL_SIZE)))
+car_img = pygame.transform.scale(car_img, (int(1.3 * CELL_SIZE), int(1.2 * CELL_SIZE)))
 obstacle_img = pygame.transform.scale(obstacle_img, (int(1.25 * CELL_SIZE), int(1.25 * CELL_SIZE)))
 fail_img = pygame.transform.scale(fail_img, (int(8 * CELL_SIZE), int(8 * CELL_SIZE)))
 
@@ -122,12 +122,22 @@ def draw_text_with_outline(text, font, color, outline_color, x, y):
     text_rect = text_surface.get_rect(center=(x, y))
     screen.blit(text_surface, text_rect)
 
+#初始化手柄
+pygame.joystick.init()
+joysticks = [pygame.joystick.Joystick(i) for i in range(pygame.joystick.get_count())]
+for joystick in joysticks:
+    joystick.init()
+
 running = True
 while running:
     event_list = pygame.event.get()
     for event in event_list:
         if event.type == pygame.QUIT:
             running = False
+
+    keys = pygame.key.get_pressed()
+    joystick1 = joysticks[0] if len(joysticks) > 0 else None
+    joystick2 = joysticks[1] if len(joysticks) > 1 else None
 
     if show_menu:
         # 绘制上半区深蓝，下半区深红
@@ -254,20 +264,47 @@ while running:
                 elif move_direction == 'right' and car_x < MAP_WIDTH - 1:
                     car_x += 1
                 last_move_time1 = current_time
+            elif single_play_mode:
+                if keys[pygame.K_w] and car_y > 0:
+                    car_y -= 1
+                elif keys[pygame.K_s] and car_y < MAP_HEIGHT - 1:
+                    car_y += 1
+                elif keys[pygame.K_a] and car_x > 0:
+                    car_x -= 1
+                elif keys[pygame.K_d] and car_x < MAP_WIDTH - 1:
+                    car_x += 1
+                last_move_time1 = current_time
             else:
-                if not reversed_controls1 and not single_play_mode:
+                if joystick1:
+                    axis_x1 = joystick1.get_axis(0)
+                    axis_y1 = joystick1.get_axis(1)
+                    if abs(axis_x1) > 0.5 or abs(axis_y1) > 0.5:
+                        if not reversed_controls1:
+                            if abs(axis_x1) > abs(axis_y1):
+                                if axis_x1 < 0 and car_x > 0:
+                                    car_x -= 1
+                                elif axis_x1 > 0 and car_x < MAP_WIDTH - 1:
+                                    car_x += 1
+                            else:
+                                if axis_y1 > 0 and car_y > 0:
+                                    car_y -= 1
+                                elif axis_y1 < 0 and car_y < (MAP_HEIGHT - 1 if single_play_mode else MAP_HEIGHT // 2 - 1):
+                                    car_y += 1
+                        else:
+                            if abs(axis_x1) > abs(axis_y1):
+                                if axis_x1 > 0 and car_x < MAP_WIDTH - 1:
+                                    car_x -= 1
+                                elif axis_x1 < 0 and car_x > 0:
+                                    car_x += 1
+                            else:
+                                if axis_y1 < 0 and car_y > 0:
+                                    car_y -= 1
+                                elif axis_y1 > 0 and car_y < (MAP_HEIGHT - 1 if single_play_mode else MAP_HEIGHT // 2 - 1):
+                                    car_y += 1
+                elif not reversed_controls1 and not single_play_mode:
                     if keys[pygame.K_w] and car_y > 0:
                         car_y -= 1
                     elif keys[pygame.K_s] and car_y < MAP_HEIGHT // 2 - 1:
-                        car_y += 1
-                    elif keys[pygame.K_a] and car_x > 0:
-                        car_x -= 1
-                    elif keys[pygame.K_d] and car_x < MAP_WIDTH - 1:
-                        car_x += 1
-                elif single_play_mode:
-                    if keys[pygame.K_w] and car_y > 0:
-                        car_y -= 1
-                    elif keys[pygame.K_s] and car_y < MAP_HEIGHT - 1:
                         car_y += 1
                     elif keys[pygame.K_a] and car_x > 0:
                         car_x -= 1
@@ -296,24 +333,51 @@ while running:
                     car2_x += 1
                 last_move_time2 = current_time
             else:
-                if not reversed_controls2:
-                    if keys[pygame.K_UP] and car2_y > MAP_HEIGHT // 2 :
-                        car2_y -= 1
-                    elif keys[pygame.K_DOWN] and car2_y < MAP_HEIGHT - 1:
-                        car2_y += 1
-                    elif keys[pygame.K_LEFT] and car2_x > 0:
-                        car2_x -= 1
-                    elif keys[pygame.K_RIGHT] and car2_x < MAP_WIDTH - 1:
-                        car2_x += 1
+                if joystick2:
+                    axis_x2 = joystick2.get_axis(0)
+                    axis_y2 = joystick2.get_axis(1)
+                    if abs(axis_x2) > 0.5 or abs(axis_y2) > 0.5:
+                        if not reversed_controls2:
+                            if abs(axis_x2) > abs(axis_y2):
+                                if axis_x2 < 0 and car2_x > 0:
+                                    car2_x -= 1
+                                elif axis_x2 > 0 and car2_x < MAP_WIDTH - 1:
+                                    car2_x += 1
+                            else:
+                                if axis_y2 > 0 and car2_y > MAP_HEIGHT//2:
+                                    car2_y -= 1
+                                elif axis_y2 < 0 and car2_y < MAP_HEIGHT - 1:
+                                    car2_y += 1
+                        else:
+                            if abs(axis_x2) > abs(axis_y2):
+                                if axis_x2 > 0 and car2_x < MAP_WIDTH - 1:
+                                    car2_x -= 1
+                                elif axis_x2 < 0 and car2_x > 0:
+                                    car2_x += 1
+                            else:
+                                if axis_y2 < 0 and car2_y > MAP_HEIGHT//2:
+                                    car2_y -= 1
+                                elif axis_y2 > 0 and car2_y < MAP_HEIGHT - 1:
+                                    car2_y += 1
                 else:
-                    if keys[pygame.K_DOWN] and car2_y > 5:
-                        car2_y -= 1
-                    elif keys[pygame.K_UP] and car2_y < MAP_HEIGHT - 1:
-                        car2_y += 1
-                    elif keys[pygame.K_RIGHT] and car2_x > 0:
-                        car2_x -= 1
-                    elif keys[pygame.K_LEFT] and car2_x < MAP_WIDTH - 1:
-                        car2_x += 1
+                    if not reversed_controls2:
+                        if keys[pygame.K_UP] and car2_y > MAP_HEIGHT // 2 :
+                            car2_y -= 1
+                        elif keys[pygame.K_DOWN] and car2_y < MAP_HEIGHT - 1:
+                            car2_y += 1
+                        elif keys[pygame.K_LEFT] and car2_x > 0:
+                            car2_x -= 1
+                        elif keys[pygame.K_RIGHT] and car2_x < MAP_WIDTH - 1:
+                            car2_x += 1
+                    else:
+                        if keys[pygame.K_DOWN] and car2_y > 5:
+                            car2_y -= 1
+                        elif keys[pygame.K_UP] and car2_y < MAP_HEIGHT - 1:
+                            car2_y += 1
+                        elif keys[pygame.K_RIGHT] and car2_x > 0:
+                            car2_x -= 1
+                        elif keys[pygame.K_LEFT] and car2_x < MAP_WIDTH - 1:
+                            car2_x += 1
                 last_move_time2 = current_time
 
     if not (game_over and game_over2):

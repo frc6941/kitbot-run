@@ -1,4 +1,4 @@
-('Z:\\Desktop\\kitbot_run\\build\\KitbotRun\\PYZ-00.pyz',
+('C:\\Mac\\Home\\Desktop\\kitbot_run\\build\\KitbotRun\\PYZ-00.pyz',
  [('__future__',
    'C:\\Users\\geyize\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\__future__.py',
    'PYMODULE'),

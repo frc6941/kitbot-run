@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/base_library.zip</key>
 		<data>
-		HqynV6Yob1UePNA1ozWQQNC1tKw=
+		NjEJCBrQox6TlVEOOStPYE/a0js=
 		</data>
 		<key>Resources/icon-windowed.icns</key>
 		<data>
@@ -38,11 +38,11 @@
 		</data>
 		<key>Resources/png/car.png</key>
 		<data>
-		hg6jOi8WjY0eOqYvNnChUuIhvtc=
+		yTAu4sWk0f2wpMUFz355BbozAL8=
 		</data>
 		<key>Resources/png/car_def.png</key>
 		<data>
-		hckg814RaBsC/iRcUWhkMDyfmHo=
+		WpzG8DwAQdtPqPZ/+czIRwwUmkk=
 		</data>
 		<key>Resources/png/double.png</key>
 		<data>
@@ -51,6 +51,10 @@
 		<key>Resources/png/fail.png</key>
 		<data>
 		MaQG3Xrlt1DbmTprUrdz0iN8qMY=
+		</data>
+		<key>Resources/png/image.png</key>
+		<data>
+		TXSnqGZH/32YO7WdUC8w5xyG4tI=
 		</data>
 		<key>Resources/png/kraken.png</key>
 		<data>
@@ -1481,7 +1485,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			GLKieRlr6zfjw42sUjZq26oSddQGrFbCVVHu6O21xqw=
+			sFwUhW1X9ASDH5BsvjVnmAS299O/Wb1VJOgoPwuDpRY=
 			</data>
 		</dict>
 		<key>Resources/icon-windowed.icns</key>
@@ -1712,14 +1716,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			iyMIOV7WCpFOZ4gsOdk6Y0jRXaMN1dESX2bOOBgeyuE=
+			N6o2CpN2NxC0sZt1IhF4MVgB9Evav2/WyclHZg72Ctw=
 			</data>
 		</dict>
 		<key>Resources/png/car_def.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Gcp9TJZPbL1lK2ZUBmhVlDm0cpug5/Ct1kaqFd7NB/U=
+			U7oTTA67l4sGun++y2MNyFuMb0fV2w0WPl9DRaw6gP0=
 			</data>
 		</dict>
 		<key>Resources/png/double.png</key>
@@ -1734,6 +1738,13 @@
 			<key>hash2</key>
 			<data>
 			iccyS+UiJkoVE+BqYF5BTCj2AGrepsOZy3b7L4q1cR4=
+			</data>
+		</dict>
+		<key>Resources/png/image.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			OKezLllR9DvLAKqSgAVkEcOi8l465++C54i3nubbWvk=
 			</data>
 		</dict>
 		<key>Resources/png/kraken.png</key>
