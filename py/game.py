@@ -323,7 +323,7 @@ while running:
         if not single_play_mode and current_time - last_move_time2 >= MOVE_COOLDOWN:
             if xiaomai2:
                 move_direction = random.choice(['up', 'down', 'left', 'right'])
-                if move_direction == 'up' and car2_y > 5:
+                if move_direction == 'up' and car2_y > 6:
                     car2_y -= 1
                 elif move_direction == 'down' and car2_y < MAP_HEIGHT - 1:
                     car2_y += 1
@@ -370,7 +370,7 @@ while running:
                         elif keys[pygame.K_RIGHT] and car2_x < MAP_WIDTH - 1:
                             car2_x += 1
                     else:
-                        if keys[pygame.K_DOWN] and car2_y > 5:
+                        if keys[pygame.K_DOWN] and car2_y > 6:
                             car2_y -= 1
                         elif keys[pygame.K_UP] and car2_y < MAP_HEIGHT - 1:
                             car2_y += 1
